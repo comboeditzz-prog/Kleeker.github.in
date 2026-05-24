@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Pro SEO Metadata -->
+    <title>Schedules &amp; Key Dates - Enterprise Brand</title>
+    <meta name="description" content="Access our operational timeline, launch schedules, system check windows, and critical enterprise tracking dates.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Modern Typography Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Shared Enterprise CSS Architecture -->
+    <style>
+        /* Design Tokens / System Variables (Perfect match to index.html) */
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --max-width: 1200px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utility Components */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #e2e8f0;
+            transition: var(--transition);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent);
+        }
+
+        /* Dashboard Clock Component */
+        .schedule-hero {
+            padding: 160px 0 60px 0;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .hero-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 40px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 40px;
+        }
+
+        .hero-title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .hero-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .live-clock-card {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-align: right;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+        }
+
+        .live-clock-card .time-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .live-clock-card .time-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #f8fafc;
+        }
+
+        .live-clock-card .date-display {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* Pro Schedule Table Layout */
+        .schedule-section {
+            padding: 60px 0 96px 0;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: var(--bg-white);
+        }
+
+        .pro-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .pro-table th {
+            background-color: var(--bg-light);
+            color: var(--primary);
+            padding: 16px 24px;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .pro-table td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .pro-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pro-table tr:hover td {
+            background-color: rgba(248, 250, 252, 0.75);
+        }
+
+        /* Semantic Status Indicators */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .status-active::before { background-color: var(--success); }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        .status-pending::before { background-color: var(--warning); }
+
+        /* Code/Date Style Formatting */
+        .date-col {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-light);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Footer Architecture */
+        .site-footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            padding: 64px 0 32px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(2, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h3 {
+            color: var(--bg-white);
+            margin-bottom: 16px;
+        }
+
+        .footer-links h4 {
+            color: var(--bg-white);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-list {
+            list-style: none;
+        }
+
+        .footer-list li {
+            margin-bottom: 12px;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--bg-white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile Optimization / Responsiveness */
+        @media (max-width: 768px) {
+            .hero-flex {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .live-clock-card {
+                text-align: left;
+                width: 100%;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Accessible Navigation Header -->
+    <header class="site-header">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo" aria-label="Brand Home">ENTERPRISE</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="#" class="nav-link active">Schedules</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div>
+                <a href="contact.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.875rem; border-radius: 8px; text-decoration: none; display: inline-block; background-color: var(--accent); color: white;">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero and Live Tracking Header -->
+        <section class="schedule-hero">
+            <div class="container hero-flex">
+                <div class="hero-title">
+                    <h1>System Timelines &amp; Schedules</h1>
+                    <p>Live operational roadmap tracking, window checkpoints, and release targets.</p>
+                </div>
+                <!-- Interactive Live Clock Module -->
+                <div class="live-clock-card" role="text" aria-live="polite">
+                    <div class="time-label">System Time (Local)</div>
+                    <div class="time-display" id="clock-time">00:00:00 AM</div>
+                    <div class="date-display" id="clock-date">Loading Calendar...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Schedule Component -->
+        <section class="schedule-section">
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="pro-table">
+                        <thead>
+                            <tr>
+                                <th>Target Date</th>
+                                <th>Event / Milestone</th>
+                                <th>System Scope</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="date-col">Q2 — June 04, 2026</td>
+                                <td><strong>Global Infrastructure Migration</strong></td>
+                                <td><span class="code-block">Cluster-09</span></td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="date-col">Q2 — June 18, 2026</td>
+                                <td>Core API Routing Overhaul</td>
+                                <td><span class="code-block">v4-networking</span></td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="date-col">Q3 — July 12, 2026</td>
+                                <td>Automated Audit Framework Launch</td>
+                                <td><span class="code-block">sec-compliance</span></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td class="date-col">Q3 — Aug 29, 2026</td>
+                                <td>UI Variable Layout Redesign</td>
+                                <td><span class="code-block">token-engine</span></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>ENTERPRISE</h3>
+                    <p>Building high-end, semantic web solutions designed for industry-leading speed, safety, and operational excellence.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul class="footer-list">
+                        <li><a href="index.html#features" class="footer-link">Features</a></li>
+                        <li><a href="#" class="footer-link">Schedules</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul class="footer-list">
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Enterprise Corp. All rights reserved.</p>
+                <p>Engineered with HTML5 &amp; CSS3 Variables</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optimized Logic Layer (Clock & Header Control) -->
+    <script>
+        // High-end real-time clock generator
+        function updateSystemClock() {
+            const now = new Date();
+            
+            // Format time string accurately
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Handle midnight/noon format '0' to '12'
+            const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format dynamic date string
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            document.getElementById('clock-time').textContent = timeString;
+            document.getElementById('clock-date').textContent = dateString;
+        }
+
+        // Initialize clock instantly and hook up tight interval updates
+        updateSystemClock();
+        setInterval(updateSystemClock, 1000);
+
+        // Header glass-morphism scroll interaction 
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.site-header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 10px 30px rgba(15, 23, 42, 0.08)';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>
